@@ -1,0 +1,18 @@
+{
+  "model": "your-chat-model",
+  "stream": true,
+  "stream_options": {
+    "include_usage": true
+  },
+  "temperature": 0.3,
+  "messages": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，请直接、准确地回答问题。"
+    },
+    {
+      "role": "user",
+      "content": "请总结 AI 网关性能测试的核心目标，并给出分点说明。"
+    }
+  ]
+}

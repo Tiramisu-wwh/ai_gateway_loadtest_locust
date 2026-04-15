@@ -1,0 +1,15 @@
+{
+  "model": "your-chat-model",
+  "stream": false,
+  "temperature": 0.3,
+  "messages": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，请输出正式风格内容。"
+    },
+    {
+      "role": "user",
+      "content": "请写一段 150 字左右的 AI 网关性能测试结论。"
+    }
+  ]
+}

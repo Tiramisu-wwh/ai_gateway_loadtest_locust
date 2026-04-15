@@ -1,0 +1,4 @@
+{
+  "model": "your-embedding-model",
+  "input": "AI 网关性能测试需要关注成功率、TTFT、吞吐、稳定性和容错能力。"
+}
