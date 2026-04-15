@@ -1,0 +1,20 @@
+{
+  "model": "your-responses-model",
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，请进行深度推理分析，提供全面准确的答案。"
+    },
+    {
+      "role": "user",
+      "content": "请全面分析AI网关性能测试中思考模型的技术挑战、指标设计和优化路径，并提供具体的实施建议。"
+    }
+  ],
+  "reasoning": {
+    "effort": "high"
+  },
+  "text": {
+    "verbosity": "low"
+  },
+  "extra_query": {}
+}

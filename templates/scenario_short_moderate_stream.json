@@ -1,0 +1,31 @@
+{
+  "_comment": "场景：短上下文+中等问题 - 流式输出版本",
+  "model": "your-responses-model",
+  "stream": true,
+  "stream_options": {
+    "include_usage": true
+  },
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，擅长清晰分析问题并给出结构化回答。"
+    },
+    {
+      "role": "user",
+      "content": "请分析AI网关性能测试中，思考推理模型的TTFT指标为什么比传统模型不准确，并说明如何改进。"
+    }
+  ],
+  "reasoning": {
+    "effort": "medium"
+  },
+  "text": {
+    "verbosity": "medium"
+  },
+  "scenario_metadata": {
+    "context_length": "short",
+    "complexity": "moderate",
+    "estimated_input_tokens": 80,
+    "expected_reasoning_time": "5-15s",
+    "output_mode": "stream"
+  }
+}

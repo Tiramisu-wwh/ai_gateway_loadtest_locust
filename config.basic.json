@@ -1,0 +1,41 @@
+{
+  "_comment": "基础测试配置 - 用于常规AI网关性能测试",
+  "_usage": "适用于日常性能监控、回归测试、基础性能验证",
+  "_instructions": "使用前请替换以下占位符：YOUR_BASE_URL、YOUR_API_KEY、YOUR_CHAT_MODEL、YOUR_RESPONSES_MODEL",
+
+  "base_url": "YOUR_BASE_URL",
+  "api_key": "YOUR_API_KEY",
+  "chat_model": "YOUR_CHAT_MODEL",
+  "responses_model": "YOUR_RESPONSES_MODEL",
+  "embedding_model": "YOUR_EMBEDDING_MODEL",
+
+  "log_dir": "logs",
+  "report_dir": "reports",
+  "request_timeout_seconds": 180,
+  "wait_time_min": 1,
+  "wait_time_max": 3,
+
+  "paths": {
+    "chat_completions": "/v1/chat/completions",
+    "responses": "/v1/responses",
+    "embeddings": "/v1/embeddings"
+  },
+
+  "traffic_ratio": {
+    "_comment": "基础测试：区分流式和非流式接口",
+    "chat_stream": 5,
+    "chat_non_stream": 2,
+    "responses": 2,
+    "embeddings": 1
+  },
+
+  "thinking_mode_config": {
+    "enabled": false,
+    "description": "思考模式测试配置。基础测试不启用"
+  },
+
+  "context_scenarios": {
+    "enabled": false,
+    "description": "上下文场景配置。基础测试不启用"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "_comment": "场景：短上下文+简单问题 - 流式输出版本",
+  "model": "your-responses-model",
+  "stream": true,
+  "stream_options": {
+    "include_usage": true
+  },
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，请快速准确地回答简单问题。"
+    },
+    {
+      "role": "user",
+      "content": "AI网关性能测试中的TTFT指标是什么意思？请用一句话解释。"
+    }
+  ],
+  "reasoning": {
+    "effort": "low"
+  },
+  "text": {
+    "verbosity": "medium"
+  },
+  "scenario_metadata": {
+    "context_length": "short",
+    "complexity": "simple",
+    "estimated_input_tokens": 50,
+    "expected_reasoning_time": "2-5s",
+    "output_mode": "stream"
+  }
+}

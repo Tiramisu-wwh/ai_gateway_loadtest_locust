@@ -1,0 +1,24 @@
+{
+  "_comment": "思考模式HIGH - 流式输出版本",
+  "model": "your-responses-model",
+  "stream": true,
+  "stream_options": {
+    "include_usage": true
+  },
+  "input": [
+    {
+      "role": "system",
+      "content": "你是资深的性能测试专家，擅长系统架构分析和复杂问题推理。"
+    },
+    {
+      "role": "user",
+      "content": "我们正在为AI网关设计完整的性能测试体系。背景：\n- 支持传统chat API和responses API\n- 需要测试思考推理模型的不同推理等级\n- 需要考虑上下文长度和问题复杂度的影响\n- 需要建立分档的性能标准\n\n请设计一个完整的测试方案，包括：测试矩阵设计、指标体系、验收标准、实施路径。需要考虑技术可行性和业务价值的平衡。"
+    }
+  ],
+  "reasoning": {
+    "effort": "high"
+  },
+  "text": {
+    "verbosity": "low"
+  }
+}

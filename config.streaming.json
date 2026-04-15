@@ -1,0 +1,48 @@
+{
+  "_comment": "流式接口测试配置 - 专注于流式输出的性能测试",
+  "_usage": "适用于测试流式接口性能，包括chat stream和responses stream",
+  "_purpose": "验证流式接口的TTFT、TPS等核心性能指标",
+  "_instructions": "使用前请替换：YOUR_BASE_URL、YOUR_API_KEY、YOUR_CHAT_MODEL、YOUR_RESPONSES_MODEL",
+
+  "base_url": "YOUR_BASE_URL",
+  "api_key": "YOUR_API_KEY",
+  "chat_model": "YOUR_CHAT_MODEL",
+  "responses_model": "YOUR_RESPONSES_MODEL",
+  "embedding_model": "YOUR_EMBEDDING_MODEL",
+
+  "responses_reasoning_effort": "medium",
+  "responses_text_verbosity": "low",
+
+  "log_dir": "logs",
+  "report_dir": "reports",
+  "request_timeout_seconds": 180,
+  "wait_time_min": 1,
+  "wait_time_max": 3,
+
+  "paths": {
+    "chat_completions": "/v1/chat/completions",
+    "responses": "/v1/responses",
+    "embeddings": "/v1/embeddings"
+  },
+
+  "traffic_ratio": {
+    "_comment": "流式接口测试：只测试流式接口，关注TTFT和TPS",
+    "_note": "思考模式的流式输出可以区分思考阶段和输出阶段",
+    "chat_stream": 5,
+    "responses_stream": 2,
+    "responses_thinking_medium_stream": 3,
+    "scenario_short_simple_stream": 1,
+    "scenario_medium_moderate_stream": 2,
+    "scenario_long_complex_stream": 1
+  },
+
+  "thinking_mode_config": {
+    "enabled": true,
+    "description": "思考模式流式测试配置"
+  },
+
+  "context_scenarios": {
+    "enabled": true,
+    "description": "场景化流式测试配置"
+  }
+}

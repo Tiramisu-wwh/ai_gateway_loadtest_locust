@@ -1,0 +1,17 @@
+{
+  "model": "your-responses-model",
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，请快速、直接地回答问题。"
+    },
+    {
+      "role": "user",
+      "content": "请简要说明AI网关性能测试的基本流程。"
+    }
+  ],
+  "text": {
+    "verbosity": "medium"
+  },
+  "extra_query": {}
+}

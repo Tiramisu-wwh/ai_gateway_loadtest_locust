@@ -1,0 +1,20 @@
+{
+  "model": "your-responses-model",
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，请进行深入推理分析，提供准确的答案。"
+    },
+    {
+      "role": "user",
+      "content": "请深入分析AI网关性能测试中思考模式的优化策略和实施要点。"
+    }
+  ],
+  "reasoning": {
+    "effort": "medium"
+  },
+  "text": {
+    "verbosity": "low"
+  },
+  "extra_query": {}
+}

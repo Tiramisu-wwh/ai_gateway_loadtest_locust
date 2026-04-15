@@ -1,0 +1,85 @@
+{
+  "_comment": "全面测试配置 - 包含所有测试场景的综合配置",
+  "_usage": "适用于完整的性能验证、容量规划、上线前全面测试",
+  "_purpose": "覆盖所有测试维度，提供完整的性能画像",
+  "_warning": "测试时间较长，建议在非业务高峰期执行",
+  "_instructions": "使用前请替换：YOUR_BASE_URL、YOUR_API_KEY、YOUR_CHAT_MODEL、YOUR_RESPONSES_MODEL",
+
+  "base_url": "YOUR_BASE_URL",
+  "api_key": "YOUR_API_KEY",
+  "chat_model": "YOUR_CHAT_MODEL",
+  "responses_model": "YOUR_RESPONSES_MODEL",
+  "embedding_model": "YOUR_EMBEDDING_MODEL",
+
+  "responses_reasoning_effort": "medium",
+  "responses_text_verbosity": "low",
+
+  "log_dir": "logs",
+  "report_dir": "reports",
+  "request_timeout_seconds": 180,
+  "wait_time_min": 1,
+  "wait_time_max": 3,
+
+  "paths": {
+    "chat_completions": "/v1/chat/completions",
+    "responses": "/v1/responses",
+    "embeddings": "/v1/embeddings"
+  },
+
+  "traffic_ratio": {
+    "_comment": "全面测试：包含基础接口、思考模式、场景化测试的所有组合",
+    "_note": "根据实际需求调整权重，重点关注测试目标",
+
+    "chat_stream": 3,
+    "chat_non_stream": 1,
+    "responses": 1,
+
+    "responses_thinking_off": 1,
+    "responses_thinking_low": 1,
+    "responses_thinking_medium": 2,
+    "responses_thinking_high": 1,
+
+    "scenario_short_simple": 1,
+    "scenario_medium_moderate": 2,
+    "scenario_long_complex": 1,
+
+    "embeddings": 1
+  },
+
+  "thinking_mode_config": {
+    "enabled": true,
+    "description": "思考模式测试配置。全面测试启用所有推理等级",
+    "scenarios": {
+      "off": {"reasoning_effort": null, "weight": 1, "description": "禁用思考模式，用于对比基准"},
+      "low": {"reasoning_effort": "low", "weight": 1, "description": "轻度思考，适合简单推理任务"},
+      "medium": {"reasoning_effort": "medium", "weight": 2, "description": "中度思考，适合复杂推理任务"},
+      "high": {"reasoning_effort": "high", "weight": 1, "description": "深度思考，适合高度复杂推理任务"}
+    }
+  },
+
+  "context_scenarios": {
+    "enabled": true,
+    "description": "上下文场景配置。全面测试启用代表性场景",
+    "context_length": {
+      "short": {"max_tokens": 2000, "weight": 1, "description": "短上下文：简洁输入，快速问答"},
+      "medium": {"max_tokens": 8000, "weight": 1, "description": "中等上下文：常规业务场景"},
+      "long": {"max_tokens": 32000, "weight": 1, "description": "长上下文：文档分析、长文本处理"}
+    },
+    "complexity": {
+      "simple": {"weight": 1, "description": "简单问题：事实查询、简单计算"},
+      "moderate": {"weight": 1, "description": "中等问题：推理分析、对比说明"},
+      "complex": {"weight": 1, "description": "复杂问题：多步推理、综合分析、创造性任务"}
+    },
+    "scenario_combinations": {
+      "short_simple": {"weight": 1, "template": "short_simple", "description": "短上下文+简单问题"},
+      "short_moderate": {"weight": 0, "template": "short_moderate", "description": "短上下文+中等问题"},
+      "short_complex": {"weight": 0, "template": "short_complex", "description": "短上下文+复杂问题"},
+      "medium_simple": {"weight": 0, "template": "medium_simple", "description": "中等上下文+简单问题"},
+      "medium_moderate": {"weight": 2, "template": "medium_moderate", "description": "中等上下文+中等问题"},
+      "medium_complex": {"weight": 0, "template": "medium_complex", "description": "中等上下文+复杂问题"},
+      "long_simple": {"weight": 0, "template": "long_simple", "description": "长上下文+简单问题"},
+      "long_moderate": {"weight": 0, "template": "long_moderate", "description": "长上下文+中等问题"},
+      "long_complex": {"weight": 1, "template": "long_complex", "description": "长上下文+复杂问题"}
+    }
+  }
+}

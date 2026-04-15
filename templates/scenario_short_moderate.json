@@ -1,0 +1,25 @@
+{
+  "model": "your-responses-model",
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，请进行推理分析，提供准确的答案。"
+    },
+    {
+      "role": "user",
+      "content": "请分析AI网关性能测试中思考模式对传统TTFT指标的影响，并说明为什么需要区分思考阶段和输出阶段。"
+    }
+  ],
+  "reasoning": {
+    "effort": "medium"
+  },
+  "text": {
+    "verbosity": "medium"
+  },
+  "scenario_metadata": {
+    "context_length": "short",
+    "complexity": "moderate",
+    "estimated_input_tokens": 80,
+    "expected_reasoning_time": "5-15s"
+  }
+}

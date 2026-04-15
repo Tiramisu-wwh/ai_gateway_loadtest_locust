@@ -1,0 +1,74 @@
+{
+  "_comment": "场景化测试配置 - 测试不同上下文长度和问题复杂度的性能影响",
+  "_usage": "适用于分析上下文长度和问题复杂度对思考模型性能的影响",
+  "_purpose": "量化不同场景维度的性能差异，为分级路由提供数据支持",
+  "_instructions": "使用前请替换：YOUR_BASE_URL、YOUR_API_KEY、YOUR_CHAT_MODEL、YOUR_RESPONSES_MODEL",
+
+  "base_url": "YOUR_BASE_URL",
+  "api_key": "YOUR_API_KEY",
+  "chat_model": "YOUR_CHAT_MODEL",
+  "responses_model": "YOUR_RESPONSES_MODEL",
+  "embedding_model": "YOUR_EMBEDDING_MODEL",
+
+  "responses_reasoning_effort": "medium",
+  "responses_text_verbosity": "low",
+
+  "log_dir": "logs",
+  "report_dir": "reports",
+  "request_timeout_seconds": 180,
+  "wait_time_min": 1,
+  "wait_time_max": 3,
+
+  "paths": {
+    "chat_completions": "/v1/chat/completions",
+    "responses": "/v1/responses",
+    "embeddings": "/v1/embeddings"
+  },
+
+  "traffic_ratio": {
+    "_comment": "场景化测试：覆盖短/中/长上下文和简单/中等/复杂问题的组合",
+    "_note": "保留基础接口作为对比基准",
+    "chat_stream": 2,
+    "chat_non_stream": 1,
+    "scenario_short_simple": 2,
+    "scenario_short_moderate": 1,
+    "scenario_medium_simple": 1,
+    "scenario_medium_moderate": 2,
+    "scenario_medium_complex": 1,
+    "scenario_long_moderate": 1,
+    "scenario_long_complex": 1
+  },
+
+  "thinking_mode_config": {
+    "enabled": true,
+    "scenarios": {
+      "medium": {"reasoning_effort": "medium", "weight": 1}
+    }
+  },
+
+  "context_scenarios": {
+    "enabled": true,
+    "description": "上下文场景配置。控制输入长度和问题复杂度对性能的影响测试",
+    "context_length": {
+      "short": {"max_tokens": 2000, "weight": 1, "description": "短上下文：简洁输入，快速问答"},
+      "medium": {"max_tokens": 8000, "weight": 1, "description": "中等上下文：常规业务场景"},
+      "long": {"max_tokens": 32000, "weight": 1, "description": "长上下文：文档分析、长文本处理"}
+    },
+    "complexity": {
+      "simple": {"weight": 1, "description": "简单问题：事实查询、简单计算"},
+      "moderate": {"weight": 1, "description": "中等问题：推理分析、对比说明"},
+      "complex": {"weight": 1, "description": "复杂问题：多步推理、综合分析、创造性任务"}
+    },
+    "scenario_combinations": {
+      "short_simple": {"weight": 2, "template": "short_simple", "description": "短上下文+简单问题"},
+      "short_moderate": {"weight": 1, "template": "short_moderate", "description": "短上下文+中等问题"},
+      "short_complex": {"weight": 0, "template": "short_complex", "description": "短上下文+复杂问题"},
+      "medium_simple": {"weight": 1, "template": "medium_simple", "description": "中等上下文+简单问题"},
+      "medium_moderate": {"weight": 2, "template": "medium_moderate", "description": "中等上下文+中等问题"},
+      "medium_complex": {"weight": 1, "template": "medium_complex", "description": "中等上下文+复杂问题"},
+      "long_simple": {"weight": 0, "template": "long_simple", "description": "长上下文+简单问题"},
+      "long_moderate": {"weight": 1, "template": "long_moderate", "description": "长上下文+中等问题"},
+      "long_complex": {"weight": 1, "template": "long_complex", "description": "长上下文+复杂问题"}
+    }
+  }
+}

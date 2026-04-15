@@ -11,11 +11,20 @@
 - `requirements.txt`：依赖清单
 
 ### 配置文件
-- `templates/chat_stream.json`：流式请求模板
-- `templates/chat_non_stream.json`：非流式请求模板
-- `templates/responses.json`：Responses API 请求模板
-- `templates/embeddings.json`：embedding 请求模板
-- `prompts/`：示例提示词
+- `templates/`：请求模板文件
+  - `chat_stream.json`：流式请求模板
+  - `chat_non_stream.json`：非流式请求模板
+  - `responses.json`：Responses API 请求模板
+  - `responses_thinking_*.json`：思考模式请求模板（off/low/medium/high）
+  - `scenario_*.json`：场景化测试模板
+  - `embeddings.json`：embedding 请求模板
+- `config.*.json`：配置模板文件
+  - `config.basic.json`：基础测试配置
+  - `config.thinking_modes.json`：思考模式对比配置
+  - `config.scenarios.json`：场景化测试配置
+  - `config.comprehensive.json`：全面测试配置
+  - `config.quick.json`：快速验证配置
+  - `config.streaming.json`：流式接口测试配置
 
 ### 输出目录
 - `logs/`：测试日志目录（按 run_id 分目录存储）

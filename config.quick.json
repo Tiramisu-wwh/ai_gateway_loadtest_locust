@@ -1,0 +1,40 @@
+{
+  "_comment": "快速验证配置 - 轻量级配置，用于快速验证基本功能",
+  "_usage": "适用于开发测试、快速验证、功能回归",
+  "_purpose": "快速验证系统基本功能，测试时间短",
+  "_instructions": "使用前请替换：YOUR_BASE_URL、YOUR_API_KEY、YOUR_CHAT_MODEL、YOUR_RESPONSES_MODEL",
+
+  "base_url": "YOUR_BASE_URL",
+  "api_key": "YOUR_API_KEY",
+  "chat_model": "YOUR_CHAT_MODEL",
+  "responses_model": "YOUR_RESPONSES_MODEL",
+  "embedding_model": "YOUR_EMBEDDING_MODEL",
+
+  "log_dir": "logs",
+  "report_dir": "reports",
+  "request_timeout_seconds": 180,
+  "wait_time_min": 1,
+  "wait_time_max": 2,
+
+  "paths": {
+    "chat_completions": "/v1/chat/completions",
+    "responses": "/v1/responses",
+    "embeddings": "/v1/embeddings"
+  },
+
+  "traffic_ratio": {
+    "_comment": "快速验证：只测试核心接口，区分流式和非流式",
+    "_note": "流式接口是主要使用场景，权重较高",
+    "chat_stream": 3,
+    "chat_non_stream": 1,
+    "responses": 1
+  },
+
+  "thinking_mode_config": {
+    "enabled": false
+  },
+
+  "context_scenarios": {
+    "enabled": false
+  }
+}

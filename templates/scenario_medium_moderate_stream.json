@@ -1,0 +1,31 @@
+{
+  "_comment": "场景：中等上下文+中等问题 - 流式输出版本",
+  "model": "your-responses-model",
+  "stream": true,
+  "stream_options": {
+    "include_usage": true
+  },
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，擅长分析复杂的技术问题，提供深入的分析和建议。"
+    },
+    {
+      "role": "user",
+      "content": "我们正在为AI网关设计性能测试方案。背景信息：\n\n1. 当前使用Locust进行负载测试\n2. 测试接口包括：chat completions、responses API、embeddings\n3. 主要关注TTFT、TTLT、Token速率等指标\n4. 新增了思考推理模型的测试支持\n5. 发现传统TTFT指标对思考模型不准确\n\n请分析在混合负载场景下（传统模式70%、思考模式30%），如何合理设置并发目标和性能阈值？需要考虑以下因素：\n- 思考模式的资源消耗特点\n- 不同推理等级的性能差异\n- 传统模式和思考模式的相互影响\n- 实际业务场景的容忍度\n\n请给出具体的建议和计算方法。"
+    }
+  ],
+  "reasoning": {
+    "effort": "medium"
+  },
+  "text": {
+    "verbosity": "low"
+  },
+  "scenario_metadata": {
+    "context_length": "medium",
+    "complexity": "moderate",
+    "estimated_input_tokens": 300,
+    "expected_reasoning_time": "10-25s",
+    "output_mode": "stream"
+  }
+}

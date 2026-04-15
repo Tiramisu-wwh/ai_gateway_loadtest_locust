@@ -1,0 +1,20 @@
+{
+  "model": "your-responses-model",
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，请准确回答问题，需要时可以进行适当推理。"
+    },
+    {
+      "role": "user",
+      "content": "请分析AI网关性能测试中思考模式对响应时间的影响。"
+    }
+  ],
+  "reasoning": {
+    "effort": "low"
+  },
+  "text": {
+    "verbosity": "medium"
+  },
+  "extra_query": {}
+}

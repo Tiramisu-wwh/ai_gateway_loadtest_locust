@@ -1,0 +1,24 @@
+{
+  "_comment": "思考模式LOW - 流式输出版本",
+  "model": "your-responses-model",
+  "stream": true,
+  "stream_options": {
+    "include_usage": true
+  },
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，擅长推理分析，请提供清晰的逻辑推导。"
+    },
+    {
+      "role": "user",
+      "content": "分析AI网关在处理高并发请求时，流式和非流式接口的性能差异和适用场景。"
+    }
+  ],
+  "reasoning": {
+    "effort": "low"
+  },
+  "text": {
+    "verbosity": "medium"
+  }
+}

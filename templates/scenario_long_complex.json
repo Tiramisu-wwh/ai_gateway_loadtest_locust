@@ -1,0 +1,25 @@
+{
+  "model": "your-responses-model",
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部AI技术专家，擅长分析复杂的系统架构和性能问题。请基于提供的详细信息进行全面分析，给出可执行的建议。"
+    },
+    {
+      "role": "user",
+      "content": "我们需要对AI网关的思考推理模型性能进行全面评估，以下是详细的背景信息：\n\n【系统架构】\n- 网关技术栈：Python + FastAPI + Locust负载测试\n- 支持模型：Qwen3-8B、GPT-4、Claude-3系列\n- 接口类型：/v1/chat/completions、/v1/responses、/v1/embeddings\n- 流量特征：混合负载，流式70%、非流式30%\n\n【性能测试现状】\n当前测试指标体系：\n1. TTFT（首Token时间）：P95 ≤ 2s，P99 ≤ 3s\n2. TTLT（总响应时间）：按Token数分档统计\n3. Token速率：≥ 15-20 tokens/s\n4. 成功率：≥ 99.9%\n5. 并发能力：支持100并发用户\n\n【思考推理模型引入】\n1. 支持OpenAI风格的reasoning_effort参数\n2. 推理等级：off/low/medium/high\n3. 观察到的问题：传统TTFT包含思考时间，指标失真\n4. 新增指标：思考时长、输出TTFT、输出TPS、思考占比\n\n【实测数据（MEDIUM等级）】\n- 平均思考时长：15s\n- P95思考时长：22s\n- 平均输出TTFT：0.3s\n- 平均输出TPS：25 tokens/s\n- 思考时间占比：75%\n- 端到端P95延迟：35s\n\n【业务场景分析】\n高价值业务场景：\n1. 简单问答（40%）：无需思考，要求快速响应\n2. 常规推理（35%）：LOW或MEDIUM等级，可接受一定延迟\n3. 复杂分析（20%）：MEDIUM或HIGH等级，重质量轻速度\n4. 实时交互（5%）：禁止思考，必须极低延迟\n\n【资源限制】\n- 上游模型API并发限制：50 req/min（思考模式）\n- 网关内存限制：8GB\n- CPU限制：4核\n- 网络带宽：1Gbps\n\n【痛点问题】\n1. 思考模式并发能力远低于传统模式（约20%）\n2. 长上下文场景下思考时间过长（P99 > 90s）\n3. 混合负载时思考模式影响传统模式性能\n4. 缺少针对不同上下文长度和复杂度的测试标准\n5. 性能目标设定缺乏数据支撑\n\n请基于以上信息，提供以下分析：\n\n1. 【容量规划】在混合负载场景下（70%传统+30%思考MEDIUM），如何合理设计容量目标？\n\n2. 【场景分档】如何按上下文长度和问题复杂度设计分档测试方案？每个档位的性能目标应该如何设定？\n\n3. 【资源隔离】是否需要为思考模式设计独立的资源池？如何实施？\n\n4. 【监控告警】思考模式应该重点监控哪些指标？告警阈值如何设定？\n\n5. 【优化建议】从网关架构、测试方法、运营策略三个层面给出具体的优化建议。\n\n请给出详细的分析过程、计算方法和可执行的建议。"
+    }
+  ],
+  "reasoning": {
+    "effort": "high"
+  },
+  "text": {
+    "verbosity": "low"
+  },
+  "scenario_metadata": {
+    "context_length": "long",
+    "complexity": "complex",
+    "estimated_input_tokens": 1200,
+    "expected_reasoning_time": "30-60s"
+  }
+}

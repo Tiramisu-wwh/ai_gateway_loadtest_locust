@@ -1,0 +1,18 @@
+{
+  "_comment": "思考模式OFF - 流式输出版本",
+  "model": "your-responses-model",
+  "stream": true,
+  "stream_options": {
+    "include_usage": true
+  },
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，请直接、准确地回答问题。"
+    },
+    {
+      "role": "user",
+      "content": "AI网关性能测试中的TTFT指标是什么？请简要说明。"
+    }
+  ]
+}

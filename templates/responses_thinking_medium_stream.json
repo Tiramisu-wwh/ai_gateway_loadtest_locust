@@ -1,0 +1,24 @@
+{
+  "_comment": "思考模式MEDIUM - 流式输出版本",
+  "model": "your-responses-model",
+  "stream": true,
+  "stream_options": {
+    "include_usage": true
+  },
+  "input": [
+    {
+      "role": "system",
+      "content": "你是企业内部 AI 助手，擅长分析复杂的技术问题，提供深入的分析和建议。"
+    },
+    {
+      "role": "user",
+      "content": "请深入分析AI网关性能测试中思考推理模型的测试策略，包括：1）指标设计 2）测试场景 3）性能目标设定"
+    }
+  ],
+  "reasoning": {
+    "effort": "medium"
+  },
+  "text": {
+    "verbosity": "low"
+  }
+}
