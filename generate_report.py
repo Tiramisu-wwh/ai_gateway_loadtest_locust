@@ -345,6 +345,10 @@ def build_risk_items(summary: Dict[str, Any], metrics_evaluation: Dict[str, Dict
     return risks[:5]
 
 
+def is_thinking_metric(metric_name: str) -> bool:
+    return metric_name.startswith("responses_thinking") or metric_name.startswith("scenario_")
+
+
 def evaluate_summary(summary: Dict[str, Any]) -> Dict[str, Any]:
     metrics: Dict[str, Dict[str, Any]] = {}
     statuses: List[str] = []
@@ -352,8 +356,12 @@ def evaluate_summary(summary: Dict[str, Any]) -> Dict[str, Any]:
     # 根据是否包含思考模式数据动态构建标准
     thinking_summary = summary.get("thinking_summary", {})
     has_thinking_mode = thinking_summary.get("total_thinking_requests", 0) > 0
+    metrics_covered = summary.get("metrics_covered", [])
+    thinking_only_run = bool(metrics_covered) and all(
+        is_thinking_metric(metric_name) for metric_name in metrics_covered
+    )
 
-    if has_thinking_mode:
+    if has_thinking_mode and thinking_only_run:
         # 思考模式标准（更宽松的TTFT要求）
         targets = {
             "success_rate": {"label": "成功率", "target": ">= 99.9%", "op": "ge", "value": 99.9},

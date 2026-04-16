@@ -289,5 +289,5 @@ cp templates/scenario_medium_moderate.json templates/scenario_custom.json
 ## 相关文档
 
 - [配置文件使用指南.md](../配置文件使用指南.md)
-- [AI 网关性能测试标准与指标说明文档.md](../doc/AI%20网关性能测试标准与指标说明文档.md)
+- [AI网关整体性能测试标准.md](../docs/AI网关整体性能测试标准.md)
 - [README.md](../README.md)

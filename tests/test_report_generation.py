@@ -94,6 +94,42 @@ class ReportGenerationTest(unittest.TestCase):
             self.assertEqual(summary["error_code_counts"]["access_denied"], 1)
             self.assertEqual(summary["token_totals"]["total_tokens"], 250)
 
+    def test_evaluate_summary_keeps_standard_ttft_threshold_for_mixed_traffic(self):
+        summary = {
+            "success_rate": 100.0,
+            "error_rate": 0.0,
+            "timeout_rate": 0.0,
+            "p95_ttft_ms": 5000,
+            "p99_ttft_ms": 5000,
+            "avg_tokens_per_sec": 25.0,
+            "metrics_covered": ["chat_stream", "responses_thinking_low"],
+            "thinking_summary": {"total_thinking_requests": 1},
+        }
+
+        evaluation = generate_report.evaluate_summary(summary)
+
+        self.assertEqual(evaluation["overall_status"], "FAIL")
+        self.assertEqual(evaluation["metrics"]["p95_ttft_ms"]["status"], "FAIL")
+        self.assertEqual(evaluation["metrics"]["p99_ttft_ms"]["status"], "FAIL")
+
+    def test_evaluate_summary_uses_relaxed_ttft_threshold_for_thinking_only_traffic(self):
+        summary = {
+            "success_rate": 100.0,
+            "error_rate": 0.0,
+            "timeout_rate": 0.0,
+            "p95_ttft_ms": 5000,
+            "p99_ttft_ms": 5000,
+            "avg_tokens_per_sec": 25.0,
+            "metrics_covered": ["responses_thinking_low"],
+            "thinking_summary": {"total_thinking_requests": 1},
+        }
+
+        evaluation = generate_report.evaluate_summary(summary)
+
+        self.assertEqual(evaluation["overall_status"], "PASS")
+        self.assertEqual(evaluation["metrics"]["p95_ttft_ms"]["status"], "PASS")
+        self.assertEqual(evaluation["metrics"]["p99_ttft_ms"]["status"], "PASS")
+
     def test_render_report_contains_key_sections(self):
         summary = {
             "run_id": "20260414-170000",

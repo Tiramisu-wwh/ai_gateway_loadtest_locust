@@ -265,8 +265,8 @@ def extract_reasoning_content(response_data: Optional[Dict[str, Any]]) -> Option
         reasoning = response_data["reasoning"]
         if isinstance(reasoning, dict) and reasoning.get("effort"):
             # 检查是否有reasoning_tokens来确认思考模式
-            usage = response_data.get("usage", {})
-            if isinstance(usage, dict) and usage.get("reasoning_tokens", 0) > 0:
+            usage_metrics = extract_usage_metrics(response_data)
+            if usage_metrics.get("reasoning_tokens", 0) > 0:
                 # 返回标记字符串，表示检测到思考模式
                 return f"[REASONING_MODE:{reasoning.get('effort', 'unknown')}]"
 
@@ -557,6 +557,28 @@ class AIGatewayUser(HttpUser):
         )
         resp.failure(build_failure_message(resp.status_code, error_info, response_text))
 
+    def record_exception_failure(
+        self,
+        resp: Any,
+        metric: str,
+        path: str,
+        model: str,
+        exc: Exception,
+        failure_message: str,
+    ) -> None:
+        error_message = str(exc) or exc.__class__.__name__
+        emit_structured_log(
+            metric=metric,
+            event="failure",
+            path=path,
+            model=model,
+            http_status=getattr(resp, "status_code", None),
+            error_type="unexpected_exception",
+            error_code=exc.__class__.__name__,
+            error_message=error_message,
+        )
+        resp.failure(failure_message)
+
     @task(get_task_weight("chat_stream", default=0))
     def chat_stream(self):
         payload, params = split_request_options(self.build_stream_payload())
@@ -639,7 +661,14 @@ class AIGatewayUser(HttpUser):
                     finish_reason=finish_reason,
                 )
             except Exception as e:
-                resp.failure(f"stream exception: {e}")
+                self.record_exception_failure(
+                    resp,
+                    "chat_stream",
+                    path,
+                    payload["model"],
+                    e,
+                    f"stream exception: {e}",
+                )
 
     @task(get_task_weight("chat_non_stream", default=0))
     def chat_non_stream(self):
@@ -686,7 +715,14 @@ class AIGatewayUser(HttpUser):
                     finish_reason=finish_reason,
                 )
             except Exception as e:
-                resp.failure(f"non-stream exception: {e}")
+                self.record_exception_failure(
+                    resp,
+                    "chat_non_stream",
+                    path,
+                    payload["model"],
+                    e,
+                    f"non-stream exception: {e}",
+                )
 
     @task(get_task_weight("responses", default=0))
     def responses_non_stream(self):
@@ -775,7 +811,14 @@ class AIGatewayUser(HttpUser):
                         status=body.get("status"),
                     )
             except Exception as e:
-                resp.failure(f"responses exception: {e}")
+                self.record_exception_failure(
+                    resp,
+                    "responses_non_stream",
+                    path,
+                    payload["model"],
+                    e,
+                    f"responses exception: {e}",
+                )
 
     def _execute_responses_task(self, reasoning_effort: Optional[str] = None, scenario: Optional[str] = None, task_name: str = "responses_custom") -> None:
         """
@@ -887,7 +930,14 @@ class AIGatewayUser(HttpUser):
                         status=body.get("status"),
                     )
             except Exception as e:
-                resp.failure(f"{task_name} exception: {e}")
+                self.record_exception_failure(
+                    resp,
+                    task_name,
+                    path,
+                    payload["model"],
+                    e,
+                    f"{task_name} exception: {e}",
+                )
 
     @task(get_task_weight("responses_thinking_off", default=0))
     def responses_thinking_off(self):
@@ -1115,7 +1165,14 @@ class AIGatewayUser(HttpUser):
                         finish_reason=finish_reason,
                     )
             except Exception as e:
-                resp.failure(f"{task_name} stream exception: {e}")
+                self.record_exception_failure(
+                    resp,
+                    task_name,
+                    path,
+                    payload["model"],
+                    e,
+                    f"{task_name} stream exception: {e}",
+                )
 
     @task(get_task_weight("responses_thinking_off_stream", default=0))
     def responses_thinking_off_stream(self):
@@ -1211,4 +1268,11 @@ class AIGatewayUser(HttpUser):
                     total_tokens=usage_metrics["total_tokens"],
                 )
             except Exception as e:
-                resp.failure(f"embeddings exception: {e}")
+                self.record_exception_failure(
+                    resp,
+                    "embeddings",
+                    path,
+                    payload["model"],
+                    e,
+                    f"embeddings exception: {e}",
+                )
